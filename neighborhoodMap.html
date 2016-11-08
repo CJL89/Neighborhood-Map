@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <title>Neighborhood Map</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta charset="utf-8">
+
+        <!-- Installation of normalize css -->
+        <link href="css/normalize.css" rel="stylesheet">
+
+        <!-- Installation of Bootstrap. -->
+        <link href="js/bootstrap.min.js">
+
+        <!-- Installation of css. -->
+        <link href="css/mapsCss.css" rel="stylesheet">
+    </head>
+
+    <body>
+        <div class="container">
+            <div class="options-box">
+                <h1>Neighborhood Map</h1>
+                <!-- <div> -->
+                    <!-- Creation of buttons that show/hide all the neighborhoods. -->
+                    <!-- <input data-bind="click: showListings" id="show-listings" type="button" value="Show Neighborhoods">
+                    <input data-bind="click: hideListings" id="hide-listings" type="button" value="Hide Neighborhoods"> -->
+                <!-- </div> -->
+                <!-- Creation of checklist seperating Manhattan in 4 sections. -->
+                <!-- <div data-bind="visible: locationsList"> -->
+                List of neighborhoods:
+                <div>
+                    <input type="checkbox" value="north" data-bind="checked: neighborhoods"> North Neighborhoods </input>
+                    <div data-bind="visible: visibleFilters">
+                        <ul data-bind="foreach: northArray">
+                            <li data-bind="text: title">
+                        </ul>
+                    </div>
+                </div>
+                <div>
+                    <input type="checkbox" value="east" data-bind="checked: neighborhoods"> East Neighborhoods </input>
+                    <div data-bind="visible: visibleFilters">
+                        <ul data-bind="foreach: eastArray">
+                            <li data-bind="text: title">
+                        </ul>
+                    </div>
+                </div>
+                <div>
+                    <input type="checkbox" value="south" data-bind="checked: neighborhoods"/> South Neighborhoods </input>
+                    <div data-bind="visible: visibleFilters">
+                        <ul data-bind="foreach: southArray">
+                            <li data-bind="text: title">
+                        </ul>
+                    </div>
+                </div>
+                <div>
+                    <input type="checkbox" value="west" data-bind="checked: neighborhoods"/> West Neighborhoods </input>
+                    <div data-bind="visible: visibleFilters">
+                        <ul data-bind="foreach: westArray">
+                            <li data-bind="text: title">
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Creation of map div in the HMTL page-->
+            <div id="map"></div>
+        </div>
+
+        <!-- Installation of jQuery -->
+        <script type='text/javascript' href="js/library/jquery-3.1.1.min.js"></script>
+
+        <!-- Installation of knockout.js -->
+        <script type='text/javascript' src='js/library/knockout.js'></script>
+
+        <!-- Compiled and minified JavaScript -->
+        <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/js/materialize.min.js"></script> -->
+
+        <!-- File with all the edits of Google Maps API -->
+        <script async defer src="js/neighborhoodMap.js"></script>
+
+        <!-- Installation of Google Maps API -->
+        <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC08YNs5B16Dzh0E4fyDW9oGlIsaINZUQE&callback=initMap" onerror="googleFail()"
+        >
+        </script>
+
+    </body>
+</html>
