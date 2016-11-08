@@ -9,13 +9,10 @@ var map,
 // Function to load the Google Maps API.
 function initMap() {
 
-    // Initial coordinates when the map is first loaded
-    initialCoordinates = Model.locations[2].location;
-
     // Different options that manipulate the map API
     var options = {
         //Central Park is the center of the map.
-        center: initialCoordinates,
+        center: {lat: 40.7829, lng: -73.9654},
         // Initial camera span when map is loaded.
         zoom: 12,
         // Initializing the style that saved in the variable "styles".
@@ -37,12 +34,14 @@ function initMap() {
 
         // Create variable "position" within the scope of the for loop to get the lat & lng.
         var positions = [
-            {loc.northFilter.location};
+            {loc.northFilter.location},
+            {loc.eastFilter.location};
         ];
 
         // Create the variable "titles" within the scope of the for loop to get the name of the neighborhood.
-        var titles = loc.title;
-
+        var titles = [
+            {loc.northFilter.title};
+        ];
 
         // Create the variable "marker" within the scope of the for loop.
         marker = new google.maps.Marker({
@@ -89,8 +88,6 @@ function infowindowDescription(marker, infoWindow) {
         // Setting the event listener to clear when the infowindow is closed.
         infoWindow.addListener("closeclick", function(){
             infoWindow.marker = null;
-            // Changes the marker color back to its default color.
-            // marker.setIcon(initMap.defaultIcon);
         });
     };
 };
@@ -118,20 +115,20 @@ var Model = {
     locations: [
 
         // Filter results that show the results of each neighborhoods.
-        {northFilter: {
+        [northFilter: {
             {title: "Harlem", location: {lat: 40.8116, lng: -73.9465}},
             {title: "Inwood", location: {lat: 40.8677, lng: -73.9212}},
             {title: "Washington Heights", location: {lat: 40.8417, lng: -73.9394}}
-        }},
+        }],
 
-        {eastFilter: {
+        [eastFilter: {
             {title: "Carnegie Hill", location: {lat: 40.7845, lng: -73.9551}},
             {title: "Lenox Hill", location: {lat: 40.7662, lng: -73.9602}},
             {title: "Upper East Side", location: {lat: 40.7736, lng: -73.9566}},
             {title: "Yorkville", location: {lat: 40.7762, lng: -73.9492}}
-        }},
+        }],
 
-        {southFilter: {
+        [southFilter: {
             {title: "Battery Park City", location: {lat: 40.7033, lng: -74.0170}},
             {title: "East Village", location: {lat: 40.7265, lng: -73.9815}},
             {title: "Financial District", location: {lat: 40.7075, lng: -74.0113}},
@@ -144,12 +141,12 @@ var Model = {
             {title: "SoHo", location: {lat: 40.7233, lng: -74.0030}},
             {title: "Tribeca", location: {lat: 40.7163, lng: -74.0086}},
             {title: "Tudor City", location: {lat: 40.7488, lng: -73.9716}}
-        }},
+        }],
 
-        {westFilter: {
+        [westFilter: {
             {title: "Hell's Kitchen", location: {lat: 40.7638, lng: -73.9918}},
             {title: "Upper West Side", location: {lat: 40.7870, lng: -73.9754}}
-        }}
+        }]
     ]
 }; // End of Model ------------------------------------------------------------
 
