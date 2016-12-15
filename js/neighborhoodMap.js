@@ -12,7 +12,7 @@ function initMap() {
     // Different options that manipulate the map API
     var options = {
         //Central Park is the center of the map.
-        center: {lat: 40.7829, lng: -73.9654},
+        center: Model.locations[2].location,
         // Initial camera span when map is loaded.
         zoom: 12,
         // Initializing the style that saved in the variable "styles".
@@ -33,10 +33,10 @@ function initMap() {
     Model.locations.forEach(function(loc) {
 
         // Create variable "position" within the scope of the for loop to get the lat & lng.
-        var positions = [loc.northFilter.location];
+        var positions = loc.location;
 
         // Create the variable "titles" within the scope of the for loop to get the name of the neighborhood.
-        var titles = [loc.northFilter.title];
+        var titles = loc.title;
 
         // Create the variable "marker" within the scope of the for loop.
         marker = new google.maps.Marker({
@@ -62,7 +62,7 @@ function initMap() {
 
     // Activates KO
     ko.applyBindings(new VM());
-}; // End of initMap -----------------------------------------------------------
+} // End of initMap -----------------------------------------------------------
 
 
 // Function that populates the infowindow with the appropiate text.
@@ -84,8 +84,8 @@ function infowindowDescription(marker, infoWindow) {
         infoWindow.addListener("closeclick", function(){
             infoWindow.marker = null;
         });
-    };
-};
+    }
+}
 
 
 // Function that makes the markers bounce when they are selected.
@@ -95,7 +95,7 @@ function toggleBounce(marker) {
     } else {
         marker.setAnimation(google.maps.Animation.BOUNCE);
     }
-};
+}
 
 
 // Your application’s stored data. This data represents objects and operations in your business domain (e.g., bank accounts that can perform money transfers) and is independent of any UI. When using KO, you will usually make Ajax calls to some server-side code to read and write this stored model data.
@@ -110,39 +110,30 @@ var Model = {
     locations: [
 
         // Filter results that show the results of each neighborhood.
-        {northFilter: [
-            {title: "Harlem", location: {lat: 40.8116, lng: -73.9465}},
-            {title: "Inwood", location: {lat: 40.8677, lng: -73.9212}},
-            {title: "Washington Heights", location: {lat: 40.8417, lng: -73.9394}}
-        ]},
-
-        {eastFilter: [
-            {title: "Carnegie Hill", location: {lat: 40.7845, lng: -73.9551}},
-            {title: "Lenox Hill", location: {lat: 40.7662, lng: -73.9602}},
-            {title: "Upper East Side", location: {lat: 40.7736, lng: -73.9566}},
-            {title: "Yorkville", location: {lat: 40.7762, lng: -73.9492}}
-        ]},
-
-        {southFilter: [
-            {title: "Battery Park City", location: {lat: 40.7033, lng: -74.0170}},
-            {title: "East Village", location: {lat: 40.7265, lng: -73.9815}},
-            {title: "Financial District", location: {lat: 40.7075, lng: -74.0113}},
-            {title: "Garment District", location: {lat: 40.7547, lng: -73.9916}},
-            {title: "Gramercy Park", location: {lat: 40.7368, lng: -73.9845}},
-            {title: "Greenwich Village", location: {lat: 40.7336, lng: -74.0027}},
-            {title: "Kips Bay", location: {lat: 40.7423, lng: -73.9801}},
-            {title: "Midtown", location: {lat: 40.7549, lng: -73.9840}},
-            {title: "Nolita", location: {lat: 40.7229, lng: -73.9955}},
-            {title: "SoHo", location: {lat: 40.7233, lng: -74.0030}},
-            {title: "Tribeca", location: {lat: 40.7163, lng: -74.0086}},
-            {title: "Tudor City", location: {lat: 40.7488, lng: -73.9716}}
-        ]},
-
-        {westFilter: [
-            {title: "Hell's Kitchen", location: {lat: 40.7638, lng: -73.9918}},
-            {title: "Upper West Side", location: {lat: 40.7870, lng: -73.9754}}
-        ]}
-    ]
+        {title: "Battery Park City", location: {lat: 40.7033, lng: -74.0170}},
+        {title: "Carnegie Hill", location: {lat: 40.7845, lng: -73.9551}},
+        {title: "Central Park", location: {lat: 40.7829, lng: -73.9654}},
+        {title: "East Village", location: {lat: 40.7265, lng: -73.9815}},
+        {title: "Financial District", location: {lat: 40.7075, lng: -74.0113}},
+        {title: "Garment District", location: {lat: 40.7547, lng: -73.9916}},
+        {title: "Gramercy Park", location: {lat: 40.7368, lng: -73.9845}},
+        {title: "Greenwich Village", location: {lat: 40.7336, lng: -74.0027}},
+        {title: "Harlem", location: {lat: 40.8116, lng: -73.9465}},
+        {title: "Hell's Kitchen", location: {lat: 40.7638, lng: -73.9918}},
+        {title: "Inwood", location: {lat: 40.8677, lng: -73.9212}},
+        {title: "Kips Bay", location: {lat: 40.7423, lng: -73.9801}},
+        {title: "Lenox Hill", location: {lat: 40.7662, lng: -73.9602}},
+        {title: "Midtown", location: {lat: 40.7549, lng: -73.9840}},
+        {title: "Morning Heights", location: {lat: 40.8090, lng: -73.9624}},
+        {title: "Nolita", location: {lat: 40.7229, lng: -73.9955}},
+        {title: "SoHo", location: {lat: 40.7233, lng: -74.0030}},
+        {title: "Tribeca", location: {lat: 40.7163, lng: -74.0086}},
+        {title: "Tudor City", location: {lat: 40.7488, lng: -73.9716}},
+        {title: "Upper East Side", location: {lat: 40.7736, lng: -73.9566}},
+        {title: "Upper West Side", location: {lat: 40.7870, lng: -73.9754}},
+        {title: "Washington Heights", location: {lat: 40.8417, lng: -73.9394}},
+        {title: "Yorkville", location: {lat: 40.7762, lng: -73.9492}}
+        ]
 }; // End of Model ------------------------------------------------------------
 
 
@@ -151,34 +142,53 @@ var ViewModel = function() {
 
     // Setting this to self to differentiate easier.
     var self = this;
+    this.marker = ko.observableArray([]);
+    this.query = ko.observable();
 
-    // Creation of observable array and binding it to Model.locations.
-    self.locationsList = ko.observableArray(Model.locations);
+    var northFilter = [
+          {title: "Harlem", location: {lat: 40.8116, lng: -73.9465}},
+          {title: "Inwood", location: {lat: 40.8677, lng: -73.9212}},
+          {title: "Washington Heights", location: {lat: 40.8417, lng: -73.9394}}
+       ];
 
-    // Creation of observable array that bind to the different checkboxes.
-    // self.neighborhoods = ko.observableArray([northFilter, eastFilter, southFilter, westFilter]);
+    var eastFilter = [
+          {title: "Carnegie Hill", location: {lat: 40.7845, lng: -73.9551}},
+          {title: "Lenox Hill", location: {lat: 40.7662, lng: -73.9602}},
+          {title: "Upper East Side", location: {lat: 40.7736, lng: -73.9566}},
+          {title: "Yorkville", location: {lat: 40.7762, lng: -73.9492}}
+        ];
 
-    // Sets the default value of the checkboxes to false so they are not checked.
-    self.visibleFilters = ko.observable(false);
+    var southFilter = [
+        {title: "Battery Park City", location: {lat: 40.7033, lng: -74.0170}},
+        {title: "East Village", location: {lat: 40.7265, lng: -73.9815}},
+        {title: "Financial District", location: {lat: 40.7075, lng: -74.0113}},
+        {title: "Garment District", location: {lat: 40.7547, lng: -73.9916}},
+        {title: "Gramercy Park", location: {lat: 40.7368, lng: -73.9845}},
+        {title: "Greenwich Village", location: {lat: 40.7336, lng: -74.0027}},
+        {title: "Kips Bay", location: {lat: 40.7423, lng: -73.9801}},
+        {title: "Midtown", location: {lat: 40.7549, lng: -73.9840}},
+        {title: "Nolita", location: {lat: 40.7229, lng: -73.9955}},
+        {title: "SoHo", location: {lat: 40.7233, lng: -74.0030}},
+        {title: "Tribeca", location: {lat: 40.7163, lng: -74.0086}},
+        {title: "Tudor City", location: {lat: 40.7488, lng: -73.9716}}
+      ];
 
-    // Computed funtion that filters only the north neighborhoods.
-    self.northArray = ko.computed(function() {
+    var westFilter = [
+        {title: "Hell's Kitchen", location: {lat: 40.7638, lng: -73.9918}},
+        {title: "Upper West Side", location: {lat: 40.7870, lng: -73.9754}}
+      ];
 
-    });
-
-    // Computed funtion that filters only the east neighborhoods.
-    self.eastArray = ko.computed(function() {
-
-    });
-
-    // Computed funtion that filters only the south neighborhoods.
-    self.southArray = ko.computed(function() {
-
-    });
-
-    // Computed funtion that filters only the west neighborhoods.
-    self.westArray = ko.computed(function() {
-
+    this.searchBox = ko.computed(function() {
+        q = self.query();
+        if(!q) {
+            return Model;
+        } else {
+            return ko.utils.arrayFilter(Model, function(place) {
+                if(locations.title.toLowerCase().indexOf(q) >= 0) {
+                    return place;
+                }
+            });
+        }
     });
 }; // End of ViewModel ---------------------------------------------------------
 

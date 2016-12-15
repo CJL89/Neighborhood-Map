@@ -3,71 +3,59 @@
 
     <head>
         <title>Neighborhood Map</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+
         <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
 
         <!-- Installation of normalize css -->
         <link href="css/normalize.css" rel="stylesheet">
 
-        <!-- Installation of Bootstrap. -->
-        <link href="js/bootstrap.min.js">
+        <!-- Installation of Bootstrap.css -->
+        <link href="css/bootstrap.min.css" rel="stylesheet">
+
+        <!-- Installation of jQuery -->
+        <script type='text/javascript' href="js/library/jquery-3.1.1.min.js"></script>
+
+        <!-- Installation of Bootstrap.js -->
+        <script type='text/javascript' href="js/library/bootstrap.min.js"></script>
 
         <!-- Installation of css. -->
         <link href="css/mapsCss.css" rel="stylesheet">
     </head>
 
     <body>
-        <div class="container">
-            <div class="options-box">
-                <h1>Neighborhood Map</h1>
-                <!-- <div> -->
-                    <!-- Creation of buttons that show/hide all the neighborhoods. -->
-                    <!-- <input data-bind="click: showListings" id="show-listings" type="button" value="Show Neighborhoods">
-                    <input data-bind="click: hideListings" id="hide-listings" type="button" value="Hide Neighborhoods"> -->
-                <!-- </div> -->
-                <!-- Creation of checklist seperating Manhattan in 4 sections. -->
-                <!-- <div data-bind="visible: locationsList"> -->
-                List of neighborhoods:
-                <div>
-                    <input type="checkbox" value="north" data-bind="checked: neighborhoods"> North Neighborhoods </input>
-                    <div data-bind="visible: visibleFilters">
-                        <ul data-bind="foreach: northArray">
-                            <li data-bind="text: title">
-                        </ul>
-                    </div>
-                </div>
-                <div>
-                    <input type="checkbox" value="east" data-bind="checked: neighborhoods"> East Neighborhoods </input>
-                    <div data-bind="visible: visibleFilters">
-                        <ul data-bind="foreach: eastArray">
-                            <li data-bind="text: title">
-                        </ul>
-                    </div>
-                </div>
-                <div>
-                    <input type="checkbox" value="south" data-bind="checked: neighborhoods"/> South Neighborhoods </input>
-                    <div data-bind="visible: visibleFilters">
-                        <ul data-bind="foreach: southArray">
-                            <li data-bind="text: title">
-                        </ul>
-                    </div>
-                </div>
-                <div>
-                    <input type="checkbox" value="west" data-bind="checked: neighborhoods"/> West Neighborhoods </input>
-                    <div data-bind="visible: visibleFilters">
-                        <ul data-bind="foreach: westArray">
-                            <li data-bind="text: title">
-                        </ul>
-                    </div>
-                </div>
-            </div>
 
-            <!-- Creation of map div in the HMTL page-->
-            <div id="map"></div>
-        </div>
+        <!-- Creation of map div in the HMTL page-->
+        <div id="map"></div>
 
-        <!-- Installation of jQuery -->
-        <script type='text/javascript' href="js/library/jquery-3.1.1.min.js"></script>
+        <nav class="navbar navbar-default">
+            <div class="container-fluid">
+
+                <!-- Collect the nav links, forms, and other content for toggling -->
+                <div class="navbar-header">
+                    <ul class="nav navbar-nav">
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Neighborhoods List<span class="caret"></span></a>
+                            <ul class="dropdown-menu" data-bind="foreach: northFilter">
+                                <li data-bind="text: title">
+                                <li></li>
+                                <li></li>
+                                <li role="separator" class="divider"></li>
+                                <li></li>
+                                <li role="separator" class="divider"></li>
+                                <li></li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <form class="navbar-form navbar-left">
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="Search">
+                        </div>
+                        <button type="submit" class="btn btn-default">Submit</button>
+                    </form>
+                </div><!-- /.navbar-collapse -->
+            </div><!-- /.container-fluid -->
+        </nav>
 
         <!-- Installation of knockout.js -->
         <script type='text/javascript' src='js/library/knockout.js'></script>
