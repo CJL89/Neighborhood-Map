@@ -94,6 +94,9 @@ function toggleBounce(marker) {
         marker.setAnimation(null);
     } else {
         marker.setAnimation(google.maps.Animation.BOUNCE);
+        setTimeout(function() {
+            marker.setAnimation(null);
+        }, 2175);
     }
 }
 
@@ -142,8 +145,7 @@ var ViewModel = function() {
 
     // Setting this to self to differentiate easier.
     var self = this;
-    this.marker = ko.observableArray([]);
-    this.query = ko.observable();
+    this.query = ko.observable("");
 
     var northFilter = [
           {title: "Harlem", location: {lat: 40.8116, lng: -73.9465}},
@@ -178,17 +180,17 @@ var ViewModel = function() {
         {title: "Upper West Side", location: {lat: 40.7870, lng: -73.9754}}
       ];
 
+    // Searched through the locations and lists the names of the different locations that were found.
     this.searchBox = ko.computed(function() {
-        q = self.query();
-        if(!q) {
-            return Model;
-        } else {
-            return ko.utils.arrayFilter(Model, function(place) {
-                if(locations.title.toLowerCase().indexOf(q) >= 0) {
-                    return place;
-                }
-            });
-        }
+        return ko.utils.arrayFilter(Model.locations, function(loc) {
+            if (self.query().length === 0 || loc.title.toLowerCase().indexOf(self.query().toLowerCase()) > -1) {
+                loc.marker.setVisible(true);
+                return true;
+            } else {
+                loc.marker.setVisible(false);
+                return false;
+            }
+        });
     });
 }; // End of ViewModel ---------------------------------------------------------
 
