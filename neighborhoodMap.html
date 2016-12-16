@@ -31,25 +31,29 @@
         <nav class="navbar navbar-default">
             <div class="container-fluid">
 
-                <!-- Collect the nav links, forms, and other content for toggling -->
+                <!-- Creation of navigation bar -->
                 <div class="navbar-header">
                     <ul class="nav navbar-nav">
-                       <li class="dropdown">
-                          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
-                          <ul class="dropdown-menu" data-bind="foreach: Model.locations">
-                              <li class="container-fluid" data-bind="text: title"></li>
-                          </ul>
-                       </li>
-                </div>
-                    <form class="navbar-form navbar-left">
-                        <div class="form-group">
-                            <input class="places-search" data-bind="value: query, valueUpdate: 'keyup'" type="text" class="form-control" placeholder="Search">
-                        </div>
-                        <button id="go-places" type="submit" class="btn btn-default">Submit</button>
-                    </form>
-                </div><!-- /.navbar-collapse -->
-            </div><!-- /.container-fluid -->
-        </nav>
+
+                      <!-- Creation of dropdown menu with the list of neighborhoods. -->
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
+                            <ul class="dropdown-menu" data-bind="foreach: Model.locations">
+                                <li class="container-fluid" data-bind="text: title"></li>
+                            </ul>
+                        </li>
+
+                        <!-- Creation of search box. -->
+                        <form class="navbar-form navbar-left">
+                            <div class="form-group">
+                                <input class="places-search" data-bind="value: query, valueUpdate: 'keyup'" type="text" class="form-control" placeholder="Search">
+                            </div>
+                        </form>
+
+                    </div> <!-- .nav navbar-nav-collapse -->
+                </div> <!-- /.navbar-collapse -->
+            </div> <!-- /.container-fluid -->
+        </nav> <!-- .nav navbar-navbar-default-collapse -->
 
         <!-- Installation of knockout.js -->
         <script type='text/javascript' src='js/library/knockout.js'></script>
