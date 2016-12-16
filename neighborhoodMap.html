@@ -13,14 +13,14 @@
         <!-- Installation of Bootstrap.css -->
         <link href="css/bootstrap.min.css" rel="stylesheet">
 
-        <!-- Installation of jQuery -->
-        <script type='text/javascript' href="js/library/jquery-3.1.1.min.js"></script>
-
-        <!-- Installation of Bootstrap.js -->
-        <script type='text/javascript' href="js/library/bootstrap.min.js"></script>
-
         <!-- Installation of css. -->
         <link href="css/mapsCss.css" rel="stylesheet">
+
+        <!-- <script>
+        $(document).ready(function () {
+            $('.dropdown-toggle').dropdown();
+        });
+        </script> -->
     </head>
 
     <body>
@@ -34,19 +34,19 @@
                 <!-- Collect the nav links, forms, and other content for toggling -->
                 <div class="navbar-header">
                     <ul class="nav navbar-nav">
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Neighborhoods List<span class="caret"></span></a>
-                            <ul class="dropdown-menu" data-bind="foreach: northFilter">
-                                <li data-bind="text: title">
-                                <li></li>
-                                <li></li>
-                                <li role="separator" class="divider"></li>
-                                <li></li>
-                                <li role="separator" class="divider"></li>
-                                <li></li>
-                            </ul>
-                        </li>
-                    </ul>
+                       <li class="dropdown">
+                          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
+                          <ul class="dropdown-menu">
+                              <li></li>
+                              <li><a href="#">Another action</a></li>
+                              <li><a href="#">Something else here</a></li>
+                              <li role="separator" class="divider"></li>
+                              <li><a href="#">Separated link</a></li>
+                              <li role="separator" class="divider"></li>
+                              <li><a href="#">One more separated link</a></li>
+                          </ul>
+                       </li>
+                </div>
                     <form class="navbar-form navbar-left">
                         <div class="form-group">
                             <input type="text" class="form-control" placeholder="Search">
@@ -60,8 +60,11 @@
         <!-- Installation of knockout.js -->
         <script type='text/javascript' src='js/library/knockout.js'></script>
 
-        <!-- Compiled and minified JavaScript -->
-        <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/js/materialize.min.js"></script> -->
+        <!-- Installation of jQuery -->
+        <script src="js/library/jquery-3.1.1.min.js"></script>
+
+        <!-- Installation of Bootstrap.js -->
+        <script src="js/library/bootstrap.min.js"></script>
 
         <!-- File with all the edits of Google Maps API -->
         <script async defer src="js/neighborhoodMap.js"></script>
