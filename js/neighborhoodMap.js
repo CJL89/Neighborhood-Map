@@ -46,6 +46,10 @@ function initMap() {
             map: map
         });
 
+        // marker.forEach(function(marker) {
+        //     wikipediaAPI(marker);
+        // });
+
         // Event listener that displays the infowindow when a certain marker is clicked on.
         marker.addListener('click', function() {
 
@@ -101,6 +105,33 @@ function toggleBounce(marker) {
 }
 
 
+// Function that gathers the information from WikiPedia.
+function wikipediaAPI(marker) {
+    var wikiURL = "https://en.wikipedia.org/w/api.php?action=opensearch&search=" + marker.title + "&format=json&callback=wikiCallback";
+
+    var wikiRequestTimeout = setTimeout(function() {
+    var alerted = localStorage.getItem('alerted') || '';
+    if (alerted != 'no') {
+          //Set timeout for 8 sec for wiki resources to load.
+          alert("Failed to get Wikipedia resources");
+          localStorage.setItem('alerted','no');
+        }
+    }, 4000);
+
+    $.ajax({
+        url: wikiURL,
+        dataType: "jsonp",
+        success: function(response) {
+            var wikiURL = response[3][0];
+            var Description = response[2][0];
+            marker.url = wikiURL;
+            marker.Description = Description;
+            clearTimeout(wikiRequestTimeout);
+        }
+    });
+}
+
+
 // Your application’s stored data. This data represents objects and operations in your business domain (e.g., bank accounts that can perform money transfers) and is independent of any UI. When using KO, you will usually make Ajax calls to some server-side code to read and write this stored model data.
 var Model = {
 
@@ -147,39 +178,6 @@ var ViewModel = function() {
     var self = this;
     this.query = ko.observable("");
 
-    var northFilter = [
-          {title: "Harlem", location: {lat: 40.8116, lng: -73.9465}},
-          {title: "Inwood", location: {lat: 40.8677, lng: -73.9212}},
-          {title: "Washington Heights", location: {lat: 40.8417, lng: -73.9394}}
-       ];
-
-    var eastFilter = [
-          {title: "Carnegie Hill", location: {lat: 40.7845, lng: -73.9551}},
-          {title: "Lenox Hill", location: {lat: 40.7662, lng: -73.9602}},
-          {title: "Upper East Side", location: {lat: 40.7736, lng: -73.9566}},
-          {title: "Yorkville", location: {lat: 40.7762, lng: -73.9492}}
-        ];
-
-    var southFilter = [
-        {title: "Battery Park City", location: {lat: 40.7033, lng: -74.0170}},
-        {title: "East Village", location: {lat: 40.7265, lng: -73.9815}},
-        {title: "Financial District", location: {lat: 40.7075, lng: -74.0113}},
-        {title: "Garment District", location: {lat: 40.7547, lng: -73.9916}},
-        {title: "Gramercy Park", location: {lat: 40.7368, lng: -73.9845}},
-        {title: "Greenwich Village", location: {lat: 40.7336, lng: -74.0027}},
-        {title: "Kips Bay", location: {lat: 40.7423, lng: -73.9801}},
-        {title: "Midtown", location: {lat: 40.7549, lng: -73.9840}},
-        {title: "Nolita", location: {lat: 40.7229, lng: -73.9955}},
-        {title: "SoHo", location: {lat: 40.7233, lng: -74.0030}},
-        {title: "Tribeca", location: {lat: 40.7163, lng: -74.0086}},
-        {title: "Tudor City", location: {lat: 40.7488, lng: -73.9716}}
-      ];
-
-    var westFilter = [
-        {title: "Hell's Kitchen", location: {lat: 40.7638, lng: -73.9918}},
-        {title: "Upper West Side", location: {lat: 40.7870, lng: -73.9754}}
-      ];
-
     // Searched through the locations and lists the names of the different locations that were found.
     this.searchBox = ko.computed(function() {
         return ko.utils.arrayFilter(Model.locations, function(loc) {
@@ -192,6 +190,12 @@ var ViewModel = function() {
             }
         });
     });
+
+    this.showMarker = function(model) {
+        var i = model.locations;
+        google.maps.event.trigger(marker[i], "click");
+    };
+
 }; // End of ViewModel ---------------------------------------------------------
 
 // Error alert if Google Maps API is not available.
