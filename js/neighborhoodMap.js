@@ -112,14 +112,29 @@ function toggleBounce(marker) {
 
 // Function that gathers the information from WikiPedia.
 function wikipediaAPI(marker) {
+
+    // Creation of variable that holds the address of the API + the title of the location.
     var wikiURL = "https://en.wikipedia.org/w/api.php?action=opensearch&search=" + marker.title + "&format=json&callback=wikiCallback";
 
+    // AJAX request that makes sure whether or not is successful.
     $.ajax({
+
+        // URL of the AJAX request.
         url: wikiURL,
+
+        // Type of file.
         dataType: "jsonp",
+
+        // Function after response was obtained.
         success: function(response) {
+
+            // Creation of variable that points to the URL of the page of the marker selected.
             var wikiURL = response[3][0];
+
+            // Creation of the variable of the description of the maker clicked.
             var Description = response[2][0];
+
+            // Save of the variables to the different markers.
             marker.url = wikiURL;
             marker.Description = Description;
             clearTimeout(wikiRequestTimeout);
@@ -187,6 +202,7 @@ var ViewModel = function() {
         });
     });
 
+    // Click function that locates the marker that the user clicked.
     this.showMarker = function(location) {
         google.maps.event.trigger(location.marker, "click");
     };
