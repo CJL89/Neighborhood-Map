@@ -38,17 +38,22 @@ function initMap() {
         // Create the variable "titles" within the scope of the for loop to get the name of the neighborhood.
         var titles = loc.title;
 
+        // Create of variable bounds of the map so it shows all the markers.
+        var bounds = new google.maps.LatLngBounds();
+
         // Create the variable "marker" within the scope of the for loop.
         marker = new google.maps.Marker({
             position: positions,
             title: titles,
             animation: google.maps.Animation.DROP,
-            map: map
+            map: map,
         });
 
-        // marker.forEach(function(marker) {
-        //     wikipediaAPI(marker);
-        // });
+        // bounds.extend(locations);
+        // map.fitBounds(bounds);
+
+        // Call for the function wikipediaAPI.
+        wikipediaAPI(marker);
 
         // Event listener that displays the infowindow when a certain marker is clicked on.
         marker.addListener('click', function() {
@@ -82,7 +87,7 @@ function infowindowDescription(marker, infoWindow) {
         infoWindow.open(map, marker);
 
         // Setting the text content that appears within the infowindo.
-        infoWindow.setContent(marker.title);
+        infoWindow.setContent("<h4>" + marker.title + "</h4><p>" + marker.Description + "</p>");
 
         // Setting the event listener to clear when the infowindow is closed.
         infoWindow.addListener("closeclick", function(){
@@ -108,15 +113,6 @@ function toggleBounce(marker) {
 // Function that gathers the information from WikiPedia.
 function wikipediaAPI(marker) {
     var wikiURL = "https://en.wikipedia.org/w/api.php?action=opensearch&search=" + marker.title + "&format=json&callback=wikiCallback";
-
-    var wikiRequestTimeout = setTimeout(function() {
-    var alerted = localStorage.getItem('alerted') || '';
-    if (alerted != 'no') {
-          //Set timeout for 8 sec for wiki resources to load.
-          alert("Failed to get Wikipedia resources");
-          localStorage.setItem('alerted','no');
-        }
-    }, 4000);
 
     $.ajax({
         url: wikiURL,
@@ -191,9 +187,8 @@ var ViewModel = function() {
         });
     });
 
-    this.showMarker = function(model) {
-        var i = model.locations;
-        google.maps.event.trigger(marker[i], "click");
+    this.showMarker = function(location) {
+        google.maps.event.trigger(location.marker, "click");
     };
 
 }; // End of ViewModel ---------------------------------------------------------
