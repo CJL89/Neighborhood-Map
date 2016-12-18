@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <title>Neighborhood Map</title>
+
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <!-- Installation of normalize css -->
+        <link href="css/normalize.css" rel="stylesheet">
+
+        <!-- Installation of Bootstrap.css -->
+        <link href="css/bootstrap.min.css" rel="stylesheet">
+
+        <!-- Installation of css. -->
+        <link href="css/mapsCss.css" rel="stylesheet">
+
+    </head>
+
+    <body>
+        <main>
+            <!-- Creation of map div in the HMTL page-->
+            <div id="map"></div>
+
+            <nav class="navbar navbar-default">
+                <div class="container-fluid">
+
+                    <!-- Creation of navigation bar -->
+                    <div class="navbar-header">
+                        <ul class="nav navbar-nav">
+
+                          <!-- Creation of dropdown menu with the list of neighborhoods. -->
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
+                                <ul class="dropdown-menu" data-bind="foreach: searchBox">
+                                    <li class="container-fluid" data-bind="text: title, click: $root.showMarker"></li>
+                                </ul>
+                            </li>
+
+                            <!-- Creation of search box. -->
+                            <form class="navbar-form navbar-left">
+                                <div class="form-group">
+                                    <input class="places-search" data-bind="value: query, valueUpdate: 'keyup'" type="text" class="form-control" placeholder="Search">
+                                </div>
+                            </form>
+
+                        </div> <!-- .nav navbar-nav-collapse -->
+                    </div> <!-- /.navbar-collapse -->
+                </div> <!-- /.container-fluid -->
+            </nav> <!-- .nav navbar-navbar-default-collapse -->
+
+            <!-- Installation of knockout.js -->
+            <script type='text/javascript' src='js/library/knockout.js'></script>
+
+            <!-- Installation of jQuery -->
+            <script src="js/library/jquery-3.1.1.min.js"></script>
+
+            <!-- Installation of Bootstrap.js -->
+            <script src="js/library/bootstrap.min.js"></script>
+
+            <!-- File with all the edits of Google Maps API -->
+            <script src="js/neighborhoodMap.js"></script>
+
+            <!-- Installation of Google Maps API -->
+            <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC08YNs5B16Dzh0E4fyDW9oGlIsaINZUQE&callback=initMap" onerror="googleFail()"
+            >
+            </script>
+        </main>
+    </body>
+</html>

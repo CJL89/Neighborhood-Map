@@ -86,8 +86,8 @@ function infowindowDescription(marker, infoWindow) {
         // Setting the location of where the infowindow will open.
         infoWindow.open(map, marker);
 
-        // Setting the text content that appears within the infowindo.
-        infoWindow.setContent("<h4>" + marker.title + "</h4><p>" + marker.Description + "</p>");
+        // Setting the text content that appears within the infowindow.
+        infoWindow.setContent("<h4>" + marker.title + "</h4><p>" + marker.description + "</p>");
 
         // Setting the event listener to clear when the infowindow is closed.
         infoWindow.addListener("closeclick", function(){
@@ -102,10 +102,14 @@ function toggleBounce(marker) {
     if (marker.getAnimation() !== null) {
         marker.setAnimation(null);
     } else {
+
+        // Gets the animation from google to make the markers bounce.
         marker.setAnimation(google.maps.Animation.BOUNCE);
+
+        // Set the times the marker will bounce after it gets clicked.
         setTimeout(function() {
             marker.setAnimation(null);
-        }, 2175);
+        }, 2100);
     }
 }
 
@@ -116,6 +120,14 @@ function wikipediaAPI(marker) {
     // Creation of variable that holds the address of the API + the title of the location.
     var wikiURL = "https://en.wikipedia.org/w/api.php?action=opensearch&search=" + marker.title + "&format=json&callback=wikiCallback";
 
+    var wikiRequestTimeout = setTimeout(function() {
+        if (description === undefined) {
+            $('p').append("Wiki API failed. Try again later.");
+        }
+
+      // Amount of time before sending the message.
+    }, 1000);
+
     // AJAX request that makes sure whether or not is successful.
     $.ajax({
 
@@ -125,18 +137,25 @@ function wikipediaAPI(marker) {
         // Type of file.
         dataType: "jsonp",
 
-        // Function after response was obtained.
+        // Function after response was obtained and it was successful.
         success: function(response) {
+
+            // Ensuring that NY's information is selected.
+            var arrayNY = response[1][1];
 
             // Creation of variable that points to the URL of the page of the marker selected.
             var wikiURL = response[3][0];
 
             // Creation of the variable of the description of the maker clicked.
-            var Description = response[2][0];
+            var description = response[2][0];
+            console.log(response);
 
             // Save of the variables to the different markers.
+            marker.arrayNY = arrayNY;
             marker.url = wikiURL;
-            marker.Description = Description;
+            marker.description = description;
+            // console.log(description);
+
             clearTimeout(wikiRequestTimeout);
         }
     });
@@ -168,7 +187,7 @@ var Model = {
         {title: "Inwood", location: {lat: 40.8677, lng: -73.9212}},
         {title: "Kips Bay", location: {lat: 40.7423, lng: -73.9801}},
         {title: "Lenox Hill", location: {lat: 40.7662, lng: -73.9602}},
-        {title: "Midtown", location: {lat: 40.7549, lng: -73.9840}},
+        {title: "Midtown Manhattan", location: {lat: 40.7549, lng: -73.9840}},
         {title: "Morning Heights", location: {lat: 40.8090, lng: -73.9624}},
         {title: "Nolita", location: {lat: 40.7229, lng: -73.9955}},
         {title: "SoHo", location: {lat: 40.7233, lng: -74.0030}},
@@ -187,7 +206,7 @@ var ViewModel = function() {
 
     // Setting this to self to differentiate easier.
     var self = this;
-    this.query = ko.observable("");
+    this.query = ko.observable('');
 
     // Searched through the locations and lists the names of the different locations that were found.
     this.searchBox = ko.computed(function() {
