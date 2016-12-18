@@ -120,43 +120,37 @@ function wikipediaAPI(marker) {
     // Creation of variable that holds the address of the API + the title of the location.
     var wikiURL = "https://en.wikipedia.org/w/api.php?action=opensearch&search=" + marker.title + "&format=json&callback=wikiCallback";
 
-    var wikiRequestTimeout = setTimeout(function() {
-        if (description === undefined) {
-            $('p').append("Wiki API failed. Try again later.");
-        }
-
-      // Amount of time before sending the message.
-    }, 1000);
-
     // AJAX request that makes sure whether or not is successful.
-    $.ajax({
+    return $.ajax({
 
         // URL of the AJAX request.
         url: wikiURL,
 
+        // Type of request.
+        type: "get",
+
         // Type of file.
         dataType: "jsonp",
 
-        // Function after response was obtained and it was successful.
-        success: function(response) {
+      // Function that handles the sucessful retrieval of information from Wikipedia.
+    }).done(function(response) {
 
-            // Ensuring that NY's information is selected.
-            var arrayNY = response[1][1];
+        // Creation of the variable of the description of the maker clicked.
+        var description = response[2][0];
 
-            // Creation of variable that points to the URL of the page of the marker selected.
-            var wikiURL = response[3][0];
+        // Save of the variables to the different markers.
+        marker.description = description;
 
-            // Creation of the variable of the description of the maker clicked.
-            var description = response[2][0];
-            console.log(response);
+      // Function that handles the failed retrieval of informaton from Wikipedia.
+    }).fail(function() {
+        if (description === null) {
 
-            // Save of the variables to the different markers.
-            marker.arrayNY = arrayNY;
-            marker.url = wikiURL;
-            marker.description = description;
-            // console.log(description);
+            // Message that is displayed after failed attempt of retrieval of information in infowindow.
+            marker.description = "Wiki API failed. Try again later.";
+        } else {
 
-            clearTimeout(wikiRequestTimeout);
+            // Pop-up that will alert the user of the failed attempt to retrieve the information.
+            alert("Could not connect to Wikipedia");
         }
     });
 }
