@@ -132,11 +132,13 @@ function wikipediaAPI(marker) {
         // Type of file.
         dataType: "jsonp",
 
+
+
     // Function that handles the sucessful retrieval of information from Wikipedia.
     }).done(function(response) {
 
         // Creation of the variable of the description of the maker clicked.
-        var description = response[2][0];
+        var description = response[2][0] || "Could not load information.";
 
         // Save of the variables to the different markers.
         marker.description = description;
