@@ -121,7 +121,7 @@ function wikipediaAPI(marker) {
     var wikiURL = "https://en.wikipedia.org/w/api.php?action=opensearch&search=" + marker.title + "&format=json&callback=wikiCallback";
 
     // AJAX request that makes sure whether or not is successful.
-    return $.ajax({
+    $.ajax({
 
         // URL of the AJAX request.
         url: wikiURL,
@@ -132,7 +132,7 @@ function wikipediaAPI(marker) {
         // Type of file.
         dataType: "jsonp",
 
-      // Function that handles the sucessful retrieval of information from Wikipedia.
+    // Function that handles the sucessful retrieval of information from Wikipedia.
     }).done(function(response) {
 
         // Creation of the variable of the description of the maker clicked.
@@ -141,17 +141,11 @@ function wikipediaAPI(marker) {
         // Save of the variables to the different markers.
         marker.description = description;
 
-      // Function that handles the failed retrieval of informaton from Wikipedia.
+    // Function that handles the failed retrieval of informaton from Wikipedia.
     }).fail(function() {
-        if (description === null) {
 
-            // Message that is displayed after failed attempt of retrieval of information in infowindow.
-            marker.description = "Wiki API failed. Try again later.";
-        } else {
-
-            // Pop-up that will alert the user of the failed attempt to retrieve the information.
-            alert("Could not connect to Wikipedia");
-        }
+        // Message that is displayed after failed attempt of retrieval of information in infowindow.
+        marker.description = ("Could not connect to Wikipedia");
     });
 }
 
